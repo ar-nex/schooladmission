@@ -5,3 +5,41 @@
 .mrgtop{margin-top: 200px;}
 .jmb-bottom{position: absolute;bottom: 0;font-weight: bolder;display: inline-block;background-color: #f1c40f;color: blue;padding: .5em;}
 marquee{color: red; margin-top: 5px;}
+
+
+.in-error{background-color: #fda9ad; color: #400000; margin: 0; padding-left: 3px;}
+.hideIt{visibility: hidden;}
+/*footer*/
+
+ footer{background-color: #000d1d; padding-top: 10px; padding-bottom: 60px; margin-top: 50px;}
+
+ .copyright, .footer-help{color: #f24c03; font-size: 1.1em;}
+ .copyright a{color: #f24c03;}
+ footer address{color: #aaa;}
+ footer address a{color: #0487d2;}
+ footer address a:hover{color: #eee; text-decoration: none;}
+ .mybrand{font-size: 1.2em;}
+            
+/*end footer */
+
+/* Dashboard */
+.statics-holder{
+	background-color: #eee;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.date-style{
+    font-size: 3.5vh;
+    color: darkblue;
+}
+
+a.hvr:hover{
+	background-color: red;
+	color: #fff;
+}
+.export{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+/* End: Dashboard */

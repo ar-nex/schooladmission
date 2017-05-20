@@ -13,7 +13,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <marquee><h3 style="margin-top: 0px;">Online applying starts on  and closes on </h3></marquee>
+            <marquee><h3 style="margin-top: 0px;">Online applying starts on <?php echo date_format(date_create($dt['start_date']), "d-m-Y"); ?>  and closes on <?php echo date_format(date_create($dt['end_date']), "d-m-Y"); ?></h3></marquee>
         </div>
         <div class="col-md-4">
             <a href="#" class="btn btn-raised btn-success btn-sm"><i class="fa fa-download"></i> Re-download form</a>
@@ -105,15 +105,15 @@
                 <div class="panel-body">
                     <dl>
                         <dt>Internal (passed MP from this school)</dt>
-                        <dd>Science : 60%</dd>
-                        <dd>Arts with Geography : 50%</dd>
-                        <dd>Arts without Geography : 40%</dd>
+                        <dd>Science : <?php echo $percentage['int_sci']; ?></dd>
+                        <dd>Arts with Geography : <?php echo $percentage['int_arts_geo']; ?></dd>
+                        <dd>Arts without Geography : <?php echo $percentage['int_arts']; ?></dd>
                     </dl>
                     <dl>
                         <dt>External (passed MP from other school)</dt>
-                        <dd>Science : 60%</dd>
-                        <dd>Arts with Geography : 50%</dd>
-                        <dd>Arts without Geography : 40%</dd>
+                        <dd>Science : <?php echo $percentage['ext_sci']; ?></dd>
+                        <dd>Arts with Geography : <?php echo $percentage['ext_arts_geo']; ?></dd>
+                        <dd>Arts without Geography : <?php echo $percentage['ext_arts']; ?></dd>
                     </dl>
                 </div>
             </div>
@@ -125,8 +125,8 @@
                 <div class="panel-body">
                     <dl>
                         <dt><i class="material-icons">date_range</i> Form fill up</dt>
-                        <dd>starts on : </dd>
-                        <dd>closes on :</dd>
+                        <dd>starts on : <?php echo date_format(date_create($dt['start_date']), "d-M-Y"); ?> </dd>
+                        <dd>closes on : <?php echo date_format(date_create($dt['end_date']), "d-M-Y"); ?></dd>
                     </dl>
                 </div>
             </div>
