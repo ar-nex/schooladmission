@@ -1,0 +1,7 @@
+/* home */
+.nmhs-header{background-color: #03A9F4;}
+.nmhs-header h1{margin-top: 0; margin-bottom: 0; padding-top: .5em; padding-bottom: .5em; letter-spacing:5px;}
+.jmb-hm{background-image: url("../images/css/n2y2.png"), url("../images/css/nm.jpg");background-size: auto, 100% 100%;background-repeat: repeat, no-repeat;position: relative;box-shadow: 0px 5px 5px #888888;}
+.mrgtop{margin-top: 200px;}
+.jmb-bottom{position: absolute;bottom: 0;font-weight: bolder;display: inline-block;background-color: #f1c40f;color: blue;padding: .5em;}
+marquee{color: red; margin-top: 5px;}
