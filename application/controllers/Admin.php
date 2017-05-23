@@ -15,6 +15,10 @@ class Admin extends CI_Controller {
 // 		$this->admin_validation['failed_msg']="";
     }
 
+    public function index() {
+        redirect(base_url('/admin/login'));
+    }
+
     public function login() {
         $this->form_validation->set_error_delimiters('<p class="in-error">', '</p>');
         $this->form_validation->set_rules('userid', 'User Id', 'trim|required');
@@ -31,17 +35,17 @@ class Admin extends CI_Controller {
     public function dashboard() {
         if ((isset($_SESSION['authenticated'])) && $_SESSION['authenticated'] === "nm11") {
             $admin['logged_admin'] = $_SESSION['user'];
-            
+
 //            $dash_data['tot_applied'] = $this->model_admin->get_total_applied();
 //            $dash_data['invalid'] = $this->model_admin->get_total_invalid();
 //            $dash_data['boysCount'] = $this->model_admin->get_gender_count('M');
 //            $dash_data['girlsCount'] = $this->model_admin->get_gender_count('F');
-            
+
             $dash_data['tot_applied'] = 130;
             $dash_data['invalid'] = 10;
             $dash_data['boysCount'] = 50;
             $dash_data['girlsCount'] = 60;
-            
+
             $daterange = $this->model_admin->get_date();
             $percertage = $this->model_admin->get_percentage_required();
             if (!$daterange) {
@@ -51,13 +55,12 @@ class Admin extends CI_Controller {
             }
             if ($percertage) {
                 $dash_data['percentage'] = $percertage;
-            }
-            else{
-                $dash_data['percentage'] = array('int_sci' => 0, 'int_arts' => 0, 'int_arts_geo' => 0, 'ext_sci' => 0, 'ext_arts' =>0, 'ext_arts_geo' => 0);
+            } else {
+                $dash_data['percentage'] = array('int_sci' => 0, 'int_arts' => 0, 'int_arts_geo' => 0, 'ext_sci' => 0, 'ext_arts' => 0, 'ext_arts_geo' => 0);
             }
             $this->_buildDashboard($admin, $dash_data);
-        } else{
-            
+        } else {
+
             $this->_showUnauthorizePage();
         }
     }

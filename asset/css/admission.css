@@ -9,6 +9,49 @@ marquee{color: red; margin-top: 5px;}
 
 .in-error{background-color: #fda9ad; color: #400000; margin: 0; padding-left: 3px;}
 .hideIt{visibility: hidden;}
+.up-case{text-transform: uppercase;}
+ 
+ .gl-spin {
+  -webkit-animation: spin .7s infinite linear;
+  -moz-animation: spin .7s infinite linear;
+  -o-animation: spin .7s infinite linear;
+  animation: spin .7s infinite linear;
+     -webkit-transform-origin: 50% 58%;
+         transform-origin:50% 58%;
+         -ms-transform-origin:50% 58%; /* IE 9 */
+}
+
+.modal .panel-title a:hover, .modal .panel-title a:focus, .modal .panel-title a:active{
+    color: yellow;
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+ 
 /*footer*/
 
  footer{background-color: #000d1d; padding-top: 10px; padding-bottom: 60px; margin-top: 50px;}
