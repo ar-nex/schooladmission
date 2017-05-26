@@ -9,6 +9,10 @@
     $(function () {
         $.material.init();
     });
+    
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
 </script>
 
 </body>

@@ -88,16 +88,17 @@ class Form extends CI_Controller {
             $db = $_POST['yy'] . '-' . $_POST['mm'] . '-' . $_POST['dd'];
             $mb = $_POST['sts_mobile'];
             $mbt = trim($mb);
+            $appliedStream = $_POST['stream'];
 
 
 
-            if ($this->_isStudentPresent($nm, $fnmt, $db)) {
+            if ($this->_isStudentPresent($nm, $fnmt, $db, $appliedStream)) {
                 $data['unique_msg'] = "Student with same name, same father name and same date of birth already applied.";
                 $this->_buildform($this->_getDateInfo(), $data);
-            } else if ($this->_isMobilePresent($nm, $mbt)) {
+            } else if ($this->_isMobilePresent($nm, $mbt, $appliedStream)) {
                 $data['unique_msg'] = "Student with same name and same mobile number already applied.";
                 $this->_buildform($this->_getDateInfo(), $data);
-            } else if (isset($_POST['sts_adhr']) && $this->_isAadharPresent($_POST['sts_adhr'])) {
+            } else if (isset($_POST['sts_adhr']) && $this->_isAadharPresent($_POST['sts_adhr'], $appliedStream)) {
                 $data['unique_msg'] = "Student with same aadhar number already applied.";
                 $this->_buildform($this->_getDateInfo(), $data);
             } elseif (!$this->_hasValidPercentage($_POST['tot'], array($_POST['bng'], $_POST['eng'], $_POST['mth'], $_POST['psc'], $_POST['lsc'], $_POST['geo'], $_POST['hst']), $_POST['stream'], $_POST['sts_type'], $data['ceilPer'])) {
@@ -153,6 +154,81 @@ class Form extends CI_Controller {
         }
     }
 
+    
+    public function photo() {
+        if ((isset($_SESSION['next']) && $_SESSION['next'] === "PHOTO") && (isset($_SESSION['post']))) { {
+                $config['upload_path'] = './uploads/nmhsxi/';
+                $config['allowed_types'] = 'jpeg|jpg|png|PNG';
+                $config['file_name'] = $this->_setImageName();
+                $config['max_size'] = 150;
+// 				$config['max_width']            = 800;
+// 				$config['max_height']           = 1200;
+
+                $this->load->library('upload', $config);
+
+                if (!$this->upload->do_upload()) {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->load->view('header/header_withJQ');
+                    $this->load->view('nav/default_nav');
+                    $this->load->view('form/upload', $error);
+                    $this->load->view('footer/footer_section');
+                    $this->load->view('footer/footer_upload');
+                } else {
+                    $data = array('upload_data' => $this->upload->data());
+                    //do resize the image.
+
+                    if ($this->_resizePic($data['upload_data']['full_path'])) {
+
+                        //put all the value in the database.
+                        $data['session'] = $_SESSION['post'];
+                        $thumb_img_name = $this->_getThumbx($data['upload_data']['file_name']);
+                        $thumb_img_path = $this->_getThumbx($data['upload_data']['full_path']);
+                        $data['form']['photo'] = $thumb_img_name;
+
+                        $data['form']['id'] = $this->model_form->putApplicationDetail($thumb_img_name, $thumb_img_path);
+                        $data['form']['dob'] = $_SESSION['post']['yy'] . '-' . $_SESSION['post']['mm'] . '-' . $_SESSION['post']['dd'];
+                        $data['applicantName'] = $_SESSION['post']['sts_name'];
+                        $applicantName = $_SESSION['post']['sts_name'];
+                        $ApplicantEmail = $_SESSION['post']['sts_email'];
+
+                        $fid = $data['form']['id'];
+                        $mobile = $_SESSION['post']['sts_mobile'];
+                        //destroy session post data
+                        unset($_SESSION['post']);
+                        $this->_sendSMS($fid, $mobile);
+
+
+                        //sent mail with form number and date of birth
+                        if ($ApplicantEmail !== "") {
+                            //	$data['hasEmailSent']=$this->_sentMail($ApplicantEmail, $applicantName, $data['form']['id']);
+
+                            $data['hasEmailSent'] = FALSE;
+                        } else {
+                            $data['hasEmailSent'] = FALSE;
+                        }
+                        
+                        $formCount = $this->model_form->get_total_applied();
+                        if ($formCount % 50 === 0) {
+                            $this->_sendSMSToHeadSir($formCount);
+                        }
+
+                        $this->load->view('header/default_header');
+                        $this->load->view('nav/default_nav');
+                        $this->load->view('form/success',$data);
+                        $this->load->view('footer/footer_section');
+                        $this->load->view('footer/default_footer');
+                    } else {
+                        echo "error";
+                    }
+                }
+            }
+        } else {
+            redirect('form');
+        }
+    }
+    
+    
+    
     private function _buildform($dateinfo, $formdata) {
         $data = $formdata;
         if (!$dateinfo) {
@@ -215,7 +291,7 @@ class Form extends CI_Controller {
 
     private function _hasCorrectAdditional($strm, $sub) {
         $validSci = array("PHYSICS", "CHEMISTRY", "MATHEMATICS", "BIOLOGY");
-        $validArt = array("GEOGRAPHY", "HISTORY", "POL. SC", "PHILOSOPHY", "ECONOMICS", "ARABIC");
+        $validArt = array("GEOGRAPHY", "HISTORY", "POL. SC", "PHILOSOPHY", "ECONOMICS", "ARABIC", "SOCIOLOGY", "EDUCATION");
         if ($strm === "SCIENCE" && $sub !== " ") {
             if (!in_array($sub, $validSci)) {
                 return false;
@@ -373,6 +449,118 @@ class Form extends CI_Controller {
 // **** end : valid percentage 
 
 
+    
+    
+    
+       private function _sendSMS($fno, $mobile) {
+        $authKey = "132443ATujQDvdWfF583dab47";
+        $mobileNumber = $mobile;
+        $senderId = "NMHSXI";
+        $message = urlencode("Application form for admission to class XI at Naimouza High School submitted successfully. Form no. is " . $fno);
+
+
+
+        //Define route 
+        $route = "4";
+//Prepare you post parameters
+        $postData = array(
+            'authkey' => $authKey,
+            'mobiles' => $mobileNumber,
+            'message' => $message,
+            'sender' => $senderId,
+            'route' => $route
+        );
+
+//API URL
+        $url = "https://control.msg91.com/api/sendhttp.php";
+
+// init the resource
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $postData
+                //,CURLOPT_FOLLOWLOCATION => true
+        ));
+
+
+//Ignore SSL certificate verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+
+//get response
+        $output = curl_exec($ch);
+
+//Print error if any
+        if (curl_errno($ch)) {
+            echo 'error:' . curl_error($ch);
+        }
+
+        curl_close($ch);
+
+        //   echo $output;
+    }
+    
+    
+    
+    
+    
+        private function _sendSMSToHeadSir($formCount) {
+        $authKey = "132443ATujQDvdWfF583dab47";
+        $mobileNumber = "8513094183";
+        $senderId = "NMHSXI";
+        $message = urlencode("Respected Sir, Greetings from nexap.in. Total form fill up for class XI admission till now is ".$formCount.". Thank you.");
+
+
+
+        //Define route 
+        $route = "4";
+//Prepare you post parameters
+        $postData = array(
+            'authkey' => $authKey,
+            'mobiles' => $mobileNumber,
+            'message' => $message,
+            'sender' => $senderId,
+            'route' => $route
+        );
+
+//API URL
+        $url = "https://control.msg91.com/api/sendhttp.php";
+
+// init the resource
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $postData
+                //,CURLOPT_FOLLOWLOCATION => true
+        ));
+
+
+//Ignore SSL certificate verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+
+//get response
+        $output = curl_exec($ch);
+
+//Print error if any
+        if (curl_errno($ch)) {
+            echo 'error:' . curl_error($ch);
+        }
+
+        curl_close($ch);
+
+        //   echo $output;
+    }
+    
+    
+    
+    
     private function _getDateInfo() {
 
         $date_range = $this->model_form->getApplyDate();
@@ -416,17 +604,17 @@ class Form extends CI_Controller {
         }
     }
 
-    private function _isStudentPresent($nm, $fnm, $dob) {
-        return $this->model_form->isStudentExist($nm, $fnm, $dob);
+    private function _isStudentPresent($nm, $fnm, $dob, $stream) {
+        return $this->model_form->isStudentExist($nm, $fnm, $dob, $stream);
     }
 
-    private function _isMobilePresent($nm, $mb) {
-        return $this->model_form->isMobileExist($nm, $mb);
+    private function _isMobilePresent($nm, $mb, $stream) {
+        return $this->model_form->isMobileExist($nm, $mb, $stream);
     }
 
-    private function _isAadharPresent($adhr) {
+    private function _isAadharPresent($adhr, $stream) {
         if (strlen($adhr) == 12) {
-            return $this->model_form->isAadharExist($adhr);
+            return $this->model_form->isAadharExist($adhr, $stream);
         } else {
             return FALSE;
         }
@@ -462,5 +650,43 @@ class Form extends CI_Controller {
         $recap = $this->_createCaptcha();
         $this->model_captcha->addCaptcha($recap);
         echo ($recap['image']);
+    }
+    
+    
+    
+    private function _getThumbx($imgdata) {
+        $thumbitem1 = "_thumb.jpg";
+        $thumbitem2 = "_thumb.jpeg";
+        $thumbitem3 = "_thumb.png";
+        if (preg_match('/(\.jpg)$/', $imgdata)) {
+            return preg_replace('/(\.jpg)$/', $thumbitem1, $imgdata);
+        } elseif (preg_match('/(\.jpeg)$/', $imgdata)) {
+            return preg_replace('/(\.jpeg)$/', $thumbitem2, $imgdata);
+        } elseif (preg_match('/(\.png)$/', $imgdata)) {
+            return preg_replace('/(\.png)$/', $thumbitem3, $imgdata);
+        } else {
+            return FALSE;
+        }
+    }
+
+    private function _setImageName() {
+        $student_name = $_SESSION['post']['sts_name'];
+        $student_dob = $_SESSION['post']['yy'] . '-' . $_SESSION['post']['mm'] . '-' . $_SESSION['post']['dd'];
+        $slug_name = preg_replace('/\s/', '_', $student_name);
+        $slug_dob = str_replace('-', '', $student_dob);
+        $img_name = $slug_name . '_' . $slug_dob;
+        return $img_name;
+    }
+
+    private function _resizePic($src_pic) {
+
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = $src_pic;
+        $config['create_thumb'] = TRUE;
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = 150;
+        $config['height'] = 150;
+        $this->load->library('image_lib', $config);
+        return $this->image_lib->resize();
     }
 }

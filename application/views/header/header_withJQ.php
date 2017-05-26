@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="<?php echo base_url('asset/css/material.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('asset/css/ripples.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('asset/css/admission.css'); ?>">
+         <link rel="icon" href="<?php echo base_url('asset/images/nmhs.ico');?>">
         <script src="<?php echo base_url('asset/js/jquery.min.js'); ?>"></script>
         <script src="http://cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
     </head>

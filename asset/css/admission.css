@@ -24,6 +24,9 @@ marquee{color: red; margin-top: 5px;}
 .modal .panel-title a:hover, .modal .panel-title a:focus, .modal .panel-title a:active{
     color: yellow;
 }
+option[value=""]{display: none;}
+
+.mandatory{color: red; font-weight: bolder;}
 
 @-moz-keyframes spin {
   from {
@@ -85,4 +88,110 @@ a.hvr:hover{
 	margin-bottom: 10px;
 }
 
+.sidebar aside ul li a:hover, .sidebar aside ul li a:focus, .sidebar aside ul li a:active {text-decoration: none; color: orangered;}
+
+
 /* End: Dashboard */
+
+/* photo upload new */
+    #button-container{margin-bottom: 20px;}
+    .img-gray {
+    -webkit-filter: opacity(60%); /* Safari */
+    filter: opacity(60%);
+    }
+    .fred{color: red;}
+    #msg-format, #msg-size{font-size: 1.5em;}
+    #btn-upload{margin: 10px;}
+    .hideIt{visibility: hidden;}
+/* end photo upload new */
+
+/* success */
+.jmb-success{
+	background-color: #292626;
+	color: #60ab63;
+}
+.jmb-success h4{ color: greenyellow;}
+.succ-ul{
+	font-size: 1.5em;
+    
+}
+
+ul.style-list{
+    list-style: none;
+    padding: 0;  
+}
+
+
+
+.style-list li{
+    background-color: #eee;;
+    
+    padding: 5px;
+    margin-bottom: .5em;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    border-left: 10px solid black;
+    line-height: 150%;
+    font-size: 1.2em;
+}
+
+
+
+/* end - success */
+
+
+/* overview */
+.ov-wrapper{
+	background-color: #eee;
+	margin: 20px 10px;
+	padding: 15px;
+    position: relative;
+    border-left: 3px solid teal;
+    
+    
+}
+
+.ov-wrapper:hover{
+box-shadow: 0px 2px 2px #bbb;
+}
+
+.ov-wrapper h4{
+	color: snow;
+	background-color: #212121;
+	display: inline-block;
+	padding: 3px 14px;
+}
+
+.ov-wrapper p{
+	margin-top: 2px;
+	margin-bottom: 2px;
+	font-size: 1.2em;
+}
+
+.ovr-status{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #af8efa;
+    padding-left: 3px;
+    padding-right: 3px;
+    box-shadow: -3px 0px 2px #bbb;
+    
+}
+.ovr-status p{
+    font-size: .95em;
+   
+}
+
+.strike{
+    text-decoration: line-through;
+}
+
+.overview-icon-holder
+{
+    display: inline-block;
+    background: white;
+    padding: 2px 15px 2px 5px;
+}
+.overview-icon-holder i{color : black; margin-left: 1px;}
+/* end: overview */

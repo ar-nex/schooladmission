@@ -11,5 +11,6 @@
 <link rel="stylesheet" href="<?php echo base_url('asset/css/material.min.css'); ?>">
 <link rel="stylesheet" href="<?php echo base_url('asset/css/ripples.css'); ?>">
 <link rel="stylesheet" href="<?php echo base_url('asset/css/admission.css'); ?>">
+ <link rel="icon" href="<?php echo base_url('asset/images/nmhs.ico');?>">
   </head>
   <body>

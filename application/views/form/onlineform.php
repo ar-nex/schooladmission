@@ -173,97 +173,6 @@
         <div class="form-group">
             <label for="sts_dob" class="col-md-4 control-label">Date of birth <i class="fa fa-calendar"></i> <span class="mandatory">*</span> </label>
 
-            <div class="col-md-1" style="padding-right: 0px;">
-                <select name="yy" class="form-control" required>
-                    <option value="">YY</option>
-
-                    <option value="2006" <?php
-                    if ((isset($session['yy']) && ($session['yy'] === '2006')) || (set_value('yy') === '2006')) {
-                        echo "selected";
-                    }
-                    ?>>2006</option>
-                    <option value="2007" <?php
-                    if ((isset($session['yy']) && ($session['yy'] === '2007')) || (set_value('yy') === '2007')) {
-                        echo "selected";
-                    }
-                    ?>>2007</option>
-
-                </select>
-
-            </div>
-
-
-
-            <div class="col-md-1 cls-dob" style="padding-right: 0px;">
-                <select name="mm" class="form-control" id="mm" required>
-                    <option value="">MM</option>
-                    <option value="01" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '01')) || (set_value('mm') === '01')) {
-                        echo "selected";
-                    }
-                    ?>>Jan</option>
-                    <option value="02" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '02')) || (set_value('mm') === '02')) {
-                        echo "selected";
-                    }
-                    ?>>Feb</option>
-                    <option value="03" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '03')) || (set_value('mm') === '03')) {
-                        echo "selected";
-                    }
-                    ?>>Mar</option>
-                    <option value="04" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '04')) || (set_value('mm') === '04')) {
-                        echo "selected";
-                    }
-                    ?>>Apr</option>
-                    <option value="05" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '05')) || (set_value('mm') === '05')) {
-                        echo "selected";
-                    }
-                    ?>>May</option>
-                    <option value="06" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '06')) || (set_value('mm') === '06')) {
-                        echo "selected";
-                    }
-                    ?>>June</option>
-                    <option value="07" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '07')) || (set_value('mm') === '07')) {
-                        echo "selected";
-                    }
-                    ?>>July</option>
-                    <option value="08" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '08')) || (set_value('mm') === '08')) {
-                        echo "selected";
-                    }
-                    ?>>Aug</option>
-                    <option value="09" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '09')) || (set_value('mm') === '09')) {
-                        echo "selected";
-                    }
-                    ?>>Sept</option>
-                    <option value="10" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '10')) || (set_value('mm') === '10')) {
-                        echo "selected";
-                    }
-                    ?>>Oct</option>
-                    <option value="11" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '11')) || (set_value('mm') === '11')) {
-                        echo "selected";
-                    }
-                    ?>>Nov</option>
-                    <option value="12" <?php
-                    if ((isset($session['mm']) && ($session['mm'] === '12')) || (set_value('mm') === '12')) {
-                        echo "selected";
-                    }
-                    ?>>Dec</option>
-                </select>
-
-
-
-            </div>
-
-
             <div class="col-md-1 cls-dob" style="padding-right: 0px;">
                 <select name="dd" class="form-control" required>
                     <option value="">DD</option>
@@ -425,7 +334,144 @@
                 </select>
 
 
-            </div>       
+            </div>
+
+
+            <div class="col-md-1 cls-dob" style="padding-right: 0px;">
+                <select name="mm" class="form-control" id="mm" required>
+                    <option value="">MM</option>
+                    <option value="01" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '01')) || (set_value('mm') === '01')) {
+                        echo "selected";
+                    }
+                    ?>>Jan</option>
+                    <option value="02" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '02')) || (set_value('mm') === '02')) {
+                        echo "selected";
+                    }
+                    ?>>Feb</option>
+                    <option value="03" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '03')) || (set_value('mm') === '03')) {
+                        echo "selected";
+                    }
+                    ?>>Mar</option>
+                    <option value="04" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '04')) || (set_value('mm') === '04')) {
+                        echo "selected";
+                    }
+                    ?>>Apr</option>
+                    <option value="05" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '05')) || (set_value('mm') === '05')) {
+                        echo "selected";
+                    }
+                    ?>>May</option>
+                    <option value="06" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '06')) || (set_value('mm') === '06')) {
+                        echo "selected";
+                    }
+                    ?>>June</option>
+                    <option value="07" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '07')) || (set_value('mm') === '07')) {
+                        echo "selected";
+                    }
+                    ?>>July</option>
+                    <option value="08" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '08')) || (set_value('mm') === '08')) {
+                        echo "selected";
+                    }
+                    ?>>Aug</option>
+                    <option value="09" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '09')) || (set_value('mm') === '09')) {
+                        echo "selected";
+                    }
+                    ?>>Sept</option>
+                    <option value="10" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '10')) || (set_value('mm') === '10')) {
+                        echo "selected";
+                    }
+                    ?>>Oct</option>
+                    <option value="11" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '11')) || (set_value('mm') === '11')) {
+                        echo "selected";
+                    }
+                    ?>>Nov</option>
+                    <option value="12" <?php
+                    if ((isset($session['mm']) && ($session['mm'] === '12')) || (set_value('mm') === '12')) {
+                        echo "selected";
+                    }
+                    ?>>Dec</option>
+                </select>
+
+
+
+            </div>
+
+            <div class="col-md-1" style="padding-right: 0px;">
+                <select name="yy" class="form-control" required>
+                    <option value="">YY</option>
+
+
+                    <option value="2000" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2000')) || (set_value('yy') === '2000')) {
+                        echo "selected";
+                    }
+                    ?>>2000</option>
+
+
+                    <option value="2001" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2001')) || (set_value('yy') === '2001')) {
+                        echo "selected";
+                    }
+                    ?>>2001</option>
+
+                    <option value="2002" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2002')) || (set_value('yy') === '2002')) {
+                        echo "selected";
+                    }
+                    ?>>2002</option>
+
+                    <option value="2003" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2003')) || (set_value('yy') === '2003')) {
+                        echo "selected";
+                    }
+                    ?>>2003</option>
+
+                    <option value="2004" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2004')) || (set_value('yy') === '2004')) {
+                        echo "selected";
+                    }
+                    ?>>2004</option>
+
+                    <option value="2005" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2005')) || (set_value('yy') === '2005')) {
+                        echo "selected";
+                    }
+                    ?>>2005</option>
+                    <option value="2006" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2006')) || (set_value('yy') === '2006')) {
+                        echo "selected";
+                    }
+                    ?>>2006</option>
+                    <option value="2007" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2007')) || (set_value('yy') === '2007')) {
+                        echo "selected";
+                    }
+                    ?>>2007</option>
+                    <option value="2008" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '2008')) || (set_value('yy') === '2008')) {
+                        echo "selected";
+                    }
+                    ?>>2008</option>
+                </select>
+
+            </div>
+
+
+
+
+
+
+
 
             <div class="col-md-3">
                 <div id="dob-error">
@@ -1145,7 +1191,10 @@
                        ?>" class="form-control up-case"
                        id="sts_school" placeholder="School from where passed class IV" list="school-list">
                 <datalist id="school-list">
-                    <option value=""></option>
+                    <option value="NAIMOUZA HIGH SCHOOL"></option>
+                    <option value="NAIMOUZA SUBHANIA HIGH MADRASAH"></option>
+                    <option value="BAMONGRAM H.M.A.M. HIGH SCHOOL"></option>
+                    <option value="SUJAPUR HIGH SCHOOL"></option>
                 </datalist>
                 <?php echo form_error('sts_school'); ?>
             </div>
@@ -1212,9 +1261,10 @@
                            echo set_value('sts_board');
                        }
                        ?>" class="form-control up-case"
-                       id="sts_board" placeholder="Board under which passed Xth exam" list="school-list">
-                <datalist id="school-list">
-                    <option value=""></option>
+                       id="sts_board" placeholder="Board under which passed Xth exam" list="board-list">
+                <datalist id="board-list">
+                    <option value="WBBSE"></option>
+                    <option value="WBBME"></option>
                 </datalist>
                 <?php echo form_error('sts_board'); ?>
             </div>
@@ -1643,8 +1693,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="panel panel-primary">
                                 <div class="panel-heading" role="tab" id="parents-heading">
                                     <h4 class="panel-title">
@@ -1657,7 +1707,7 @@
                                     <div class="panel-body">
                                         <div class="col-md-12">
                                             <ul style="padding-left: 3px;">
-                                                
+
                                                 <li>Father's name : <strong id="m-fname"></strong></li>
                                                 <li>Mother's name : <strong id="m-mname"></strong></li>
                                                 <li>Guardian's Name : <strong id="m-gname"></strong></li>
@@ -1671,7 +1721,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
 
                             <div class="panel panel-primary">
                                 <div class="panel-heading" role="tab" id="addr-heading">
@@ -1758,7 +1808,7 @@
                                                 <li>Total marks obtained : <strong id="m-tot-obtained"></strong></li>
                                                 <li>Full marks : <strong id="m-full-mark"></strong></li>
                                                 <li>Percentage : <strong id="m-percn"></strong></li>
-                                               
+
                                             </ul>
                                             <div class="table-responsive">
                                                 <table class="table table-condensed table-bordered">
@@ -1793,7 +1843,7 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="panel panel-primary">
                                 <div class="panel-heading" role="tab" id="subject-combo-heading">
                                     <h4 class="panel-title">
@@ -1832,9 +1882,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default hideIt" data-dismiss="modal" id="btn-dismiss"><i class="fa fa-pencil-square-o"></i> Edit again</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-edit"><i class="fa fa-pencil-square-o"></i> Edit again</button>
+                        <button type="button" class="btn btn-raised btn-default" data-dismiss="modal" id="btn-edit"><i class="fa fa-pencil-square-o"></i> Edit again</button>
 <!--                        <button type="button" id="modal-ok" class="btn btn-success"><i class="fa fa-send"></i> Submit</button>-->
-                        <button type="button" id="modal-ok1" class="btn btn-success"><i class="fa fa-send"></i> Everything Ok</button>
+                        <button type="button" id="modal-ok1" class="btn btn-raised btn-success"><i class="fa fa-check-square-o"></i> Everything Ok</button>
                     </div>
                 </div>
             </div>

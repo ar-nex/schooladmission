@@ -31,10 +31,13 @@
     <div class="col-md-2 sidebar">
         <aside>
             <ul>
-                <li><a href="<?php echo site_url('/duplicate'); ?>"><i class="fa fa-group"></i> &nbsp; Duplicate hunter</a></li>
+<!--                <li><a href="<?php echo site_url('/duplicate'); ?>"><i class="fa fa-group"></i> &nbsp; Duplicate hunter</a></li>
                 <li><a href="<?php echo site_url('/coupon'); ?>"><span class="glyphicon glyphicon-random"></span> &nbsp; Lottery coupons</a></li>
                 <li><a href="<?php echo site_url('/lotteryentry'); ?>"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Lottery data entry</a></li>
-                <li><a href="<?php echo site_url('/selected'); ?>"><span class="glyphicon glyphicon-check"></span> &nbsp; Selected Students</a></li>
+                <li><a href="<?php echo site_url('/selected'); ?>"><span class="glyphicon glyphicon-check"></span> &nbsp; Selected Students</a></li>-->
+                <li><a href="<?php echo site_url('/admissionday'); ?>"><span class="glyphicon glyphicon-list-alt"></span> &nbsp; Merit list ARTS</a></li>
+                <li><a href="<?php echo site_url('/admissionday'); ?>"><span class="glyphicon glyphicon-list-alt"></span> &nbsp; Merit list SCIENCE</a></li>
+              
                 <li><a href="<?php echo site_url('/admissionday'); ?>"><span class="glyphicon glyphicon-list-alt"></span> &nbsp; Admission day</a></li>
                 <li><a href="<?php echo site_url('/edit'); ?>" target="_blank"><span class="glyphicon glyphicon-edit"></span> &nbsp; Edit</a></li>
                 <li><a href="<?php echo site_url('/download'); ?>" target="_blank"><span class="glyphicon glyphicon-list"></span> &nbsp; Stat &AMP; download</a></li>
@@ -47,44 +50,72 @@
                 <h3>Total applied</h3>
                 <input type="hidden" id="h-tot-count" value="<?php echo($tot_applied); ?>">
                 <p id="p-tot-count"><?php echo($tot_applied); ?></p>
-                <a class="btn btn-sm btn-primary" href="<?php echo site_url('overview'); ?>">view</a>
+                <a class="btn btn-raised btn-sm btn-danger" href="<?php echo site_url('overview'); ?>">view</a>
             </div>
             <div class="strip-inner text-center">
                 <h3>Valid</h3>
                 <?php $valid = $tot_applied - $invalid; ?>
                 <input type="hidden" id="h-valid-count" value="<?php echo $valid; ?>">
                 <p id="p-valid-count"><?php echo $valid; ?></p>
-                <a class="btn btn-sm btn-primary" href="<?php echo site_url('overview/valid'); ?>">view</a>
+                <a class="btn btn-raised btn-sm btn-primary" href="<?php echo site_url('overview/valid'); ?>">view</a>
             </div>
             <div class="strip-inner text-center" style="border-right:none;">
                 <h3>Rejected</h3>
                 <input type="hidden" id="h-invalid-count" value="<?php echo $invalid; ?>">
                 <p id="p-invalid-count"><?php echo $invalid; ?></p>
-                <a class="btn btn-sm btn-primary" href="<?php echo site_url('overview/rejected'); ?>">view</a>
+                <a class="btn btn-raised btn-sm btn-primary" href="<?php echo site_url('overview/rejected'); ?>">view</a>
             </div>
         </div>
 
         <div class="strip">
             <div class="strip-inner text-center">
-                <h3>Total valid</h3>
-                <?php $totGender = $boysCount + $girlsCount; ?>
-                <input type="hidden" id="h-tot-gender" value="<?php echo $totGender; ?>">
-                <p id="p-tot-gender"><?php echo $totGender; ?></p>
-                <a class="btn btn-sm btn-primary"  href="<?php echo site_url('overview/valid'); ?>">view</a>
-            </div>
-            <div class="strip-inner text-center">
+                
                 <h3>Boys</h3>
                 <input type="hidden" id="h-boys-count" value="<?php echo $boysCount; ?>">
                 <p id="p-boys-count"><?php echo $boysCount; ?></p>
-                <a class="btn btn-sm btn-primary" href="<?php echo site_url('overview/boys'); ?>">view</a>
+                <a class="btn btn-sm btn-raised btn-success" href="<?php echo site_url('overview/boys'); ?>">view</a>
+               
+            </div>
+            <div class="strip-inner text-center">
+                 <h3>Girls</h3>
+                 <input type="hidden" id="h-girls-count" value="<?php echo $girlsCount; ?>">
+                <p id="p-girls-count"><?php echo $girlsCount; ?></p>
+                <a class="btn btn-sm btn-raised btn-success" href="<?php echo site_url('overview/girls'); ?>">view</a>
             </div>
             <div class="strip-inner text-center" style="border-right:none;">
-                <h3>Girls</h3>
-                <input type="hidden" id="h-girls-count" value="<?php echo $girlsCount; ?>">
-                <p id="p-girls-count"><?php echo $girlsCount; ?></p>
-                <a class="btn btn-sm btn-primary" href="<?php echo site_url('overview/girls'); ?>">view</a>
+               
+                <h3>Internal</h3>
+ 
+                 <input type="hidden" id="h-tot-gender" value="<?php echo $internalCount; ?>">
+                <p id="p-tot-gender"><?php echo $internalCount; ?></p>
+                <a class="btn btn-sm btn-raised btn-info"  href="<?php echo site_url('overview/internal'); ?>">view</a>
+                
+               
             </div>
         </div>
+        
+        <div class="strip">
+            <div class="strip-inner text-center">
+                <h3>External</h3>
+                
+                <input type="hidden" id="h-tot-external" value="<?php echo $externalCount; ?>">
+                <p id="p-tot-external"><?php echo $externalCount; ?></p>
+                <a class="btn btn-sm btn-raised btn-info"  href="<?php echo site_url('overview/external'); ?>">view</a>
+            </div>
+            <div class="strip-inner text-center">
+                <h3>Science</h3>
+                <input type="hidden" id="h-science-count" value="<?php echo $sciCount; ?>">
+                <p id="p-science-count"><?php echo $sciCount; ?></p>
+                <a class="btn btn-sm btn-raised btn-warning" href="<?php echo site_url('overview/science'); ?>">view</a>
+            </div>
+            <div class="strip-inner text-center" style="border-right:none;">
+                <h3>Arts</h3>
+                <input type="hidden" id="h-arts-count" value="<?php echo $artCount; ?>">
+                <p id="p-arts-count"><?php echo $artCount; ?></p>
+                <a class="btn btn-sm btn-raised btn-warning" href="<?php echo site_url('overview/arts'); ?>">view</a>
+            </div>
+        </div>
+        
         <h3 class="page-header">Daily form fill up statics</h3>
         <div id="chart" style="width: 100%; height: 200px; margin: 0 auto;">
 

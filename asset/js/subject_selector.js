@@ -1,6 +1,6 @@
 // function for adding subject combination
  var sci_subjects = ["PHYSICS", "CHEMISTRY", "MATHEMATICS", "BIOLOGY"];
- var art_subjects = ["GEOGRAPHY", "HISTORY", "POL. SC", "PHILOSOPHY", "ECONOMICS", "ARABIC", "SOCIOLOG", "EDUCATION"];
+ var art_subjects = ["GEOGRAPHY", "HISTORY", "POL. SC", "PHILOSOPHY", "ECONOMICS", "ARABIC", "SOCIOLOGY", "EDUCATION"];
  
  $("select[name='stream']").change(function(){
 	 if($(this).val() === "SCIENCE"){

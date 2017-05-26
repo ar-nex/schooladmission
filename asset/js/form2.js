@@ -182,40 +182,40 @@ $("input[name='sts_bpl']").change(function(){
 	}
 });
 
-$("select[name='yy']").change(function(){
-    var yr = $(this).val();
-    if(yr == 2007)
-    {
-        $("#mm option[value='04']").remove();
-        $("#mm option[value='05']").remove();
-        $("#mm option[value='06']").remove();
-        $("#mm option[value='07']").remove();
-        $("#mm option[value='08']").remove();
-        $("#mm option[value='09']").remove();
-        $("#mm option[value='10']").remove();
-        $("#mm option[value='11']").remove();
-        $("#mm option[value='12']").remove();
-    } 
-    else if(yr == 2006)
-    {
-        if($("#mm option[value='04']").length)
-        {
-
-        }
-        else
-        {
-            $("#mm").append('<option value="04">Apr</option>');
-            $("#mm").append('<option value="05">May</option>');
-            $("#mm").append('<option value="06">June</option>');
-            $("#mm").append('<option value="07">July</option>');
-            $("#mm").append('<option value="08">Aug</option>');
-            $("#mm").append('<option value="09">Sept</option>');
-            $("#mm").append('<option value="10">Oct</option>');
-            $("#mm").append('<option value="11">Nov</option>');
-            $("#mm").append('<option value="12">Dec</option>');
-        }
-    }
-});
+//$("select[name='yy']").change(function(){
+//    var yr = $(this).val();
+//    if(yr == 2007)
+//    {
+//        $("#mm option[value='04']").remove();
+//        $("#mm option[value='05']").remove();
+//        $("#mm option[value='06']").remove();
+//        $("#mm option[value='07']").remove();
+//        $("#mm option[value='08']").remove();
+//        $("#mm option[value='09']").remove();
+//        $("#mm option[value='10']").remove();
+//        $("#mm option[value='11']").remove();
+//        $("#mm option[value='12']").remove();
+//    } 
+//    else if(yr == 2006)
+//    {
+//        if($("#mm option[value='04']").length)
+//        {
+//
+//        }
+//        else
+//        {
+//            $("#mm").append('<option value="04">Apr</option>');
+//            $("#mm").append('<option value="05">May</option>');
+//            $("#mm").append('<option value="06">June</option>');
+//            $("#mm").append('<option value="07">July</option>');
+//            $("#mm").append('<option value="08">Aug</option>');
+//            $("#mm").append('<option value="09">Sept</option>');
+//            $("#mm").append('<option value="10">Oct</option>');
+//            $("#mm").append('<option value="11">Nov</option>');
+//            $("#mm").append('<option value="12">Dec</option>');
+//        }
+//    }
+//});
 
 
 
@@ -485,27 +485,27 @@ $("#modal-ok").click(function () {
     
     
     var sel_cat = $("select[name='sts_cat']");
-    if(sel_cat.val() === " "){
+    if(sel_cat.val() === ""){
     	error.push(sel_cat);
     }
 
     var sel_dd = $("select[name='dd']");
-    if(sel_dd.val() === " "){
+    if(sel_dd.val() === ""){
         error.push(sel_dd);
     }
 
     var sel_mm = $("select[name='mm']");
-    if(sel_mm.val() === " "){
+    if(sel_mm.val() === ""){
         error.push(sel_mm);
     }
 
     var sel_yy = $("select[name='yy']");
-    if(sel_yy.val() === " "){
+    if(sel_yy.val() === ""){
         error.push(sel_yy);
     }
     
     var sel_rel = $("select[name='sts_religion']");
-    if(sel_rel.val() === " "){
+    if(sel_rel.val() === ""){
     	error.push(sel_rel);
     }
     
@@ -592,6 +592,16 @@ $("#modal-ok").click(function () {
     }
    
 
+});
+
+
+
+
+$("#main-form").submit(function (event){
+    if (!hasValidPercentage()) {
+        $(".less60-msg").text("Sorry! You have less than allowed percentage in class X. You are not eligible to fill &amp; submit online form.");
+        event.preventDefault();
+    }
 });
  
 function hasErrorInTbox(tbox, type) {
@@ -1181,3 +1191,21 @@ function isMore(obt_perc, elig_per){
 //     }
 //    }
 //});
+
+
+
+$("input[name='sts_school']").focusout(function(){
+    var school = $(this).val().toUpperCase();
+    if(school !== ""){
+        if(school === "NAIMOUZA HIGH SCHOOL" || school === "NAI MOUZA HIGH SCHOOL" || school === "N.M.H.S." || school === "N. M. H. S." || school === "NMHS" || school === "N.M.H.S" || school === "NAIMOUZA HIGH SCHOOL " || school === "NAI MOUZA HIGH SCHOOL "){
+            var rd_type = $("input[value='INTERNAL']");
+            rd_type.prop("checked", true);
+        }else{
+            var rd_type = $("input[value='EXTERNAL']");
+            rd_type.prop("checked", true);
+        }
+    }
+});
+$("input[name='sts_type']").click(function(){
+    return false;
+});

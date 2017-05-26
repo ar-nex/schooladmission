@@ -1,6 +1,9 @@
 .DS_Store
 
 application/cache/*
+captcha/*
+uploads/*
+asset/images/*
 !application/cache/index.html
 !application/cache/.htaccess
 

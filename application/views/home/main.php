@@ -32,7 +32,7 @@
 
                         <h4 class="list-group-item-heading">Only Two Steps.</h4>
 
-                        <p class="list-group-item-text">The whole procedure is divided into two steps. First step is for entering information and second steps is for uploading picture of the candidate.</p>
+                        <p class="list-group-item-text">The whole procedure is divided into two steps. First step is for entering information and second step is for uploading picture of the candidate.</p>
                     </div>
                 </div>
                 <div class="list-group-separator"></div>
@@ -138,7 +138,7 @@
                 <p>Any wrong information entered by the candidate may lead to the cancellation of the form.</p>
             </div>
             
-            <a href="#" class="btn btn-raised btn-primary"><i class="material-icons">description</i> Apply online</a>
+            <a href="<?php echo site_url('form'); ?>" class="btn btn-raised btn-primary"><i class="material-icons">description</i> Apply online</a>
         </div>
     </div>
 </div>

@@ -43,17 +43,18 @@ class Model_form extends CI_Model {
             $name = $name." ".$_SESSION['post']['sts_name3'];
         }
         
-        $sx = $_SESSION['post']['sts_sex'];
-        $fno;
-        if($sx == "M"){
-            $sql = "INSERT INTO `formno_boys` (`id`) VALUES (NULL)";
-            $query = $this->db->query($sql);
-            $fno = $this->db->insert_id();
-        }else{
-            $sql = "INSERT INTO `formno_girls` (`id`) VALUES (NULL)";
-            $query = $this->db->query($sql);
-            $fno = $this->db->insert_id();
-        }
+//        $sx = $_SESSION['post']['sts_sex'];
+//        $fno;
+//        if($sx == "M"){
+//            $sql = "INSERT INTO `formno_boys` (`id`) VALUES (NULL)";
+//            $query = $this->db->query($sql);
+//            $fno = $this->db->insert_id();
+//        }else{
+//            $sql = "INSERT INTO `formno_girls` (`id`) VALUES (NULL)";
+//            $query = $this->db->query($sql);
+//            $fno = $this->db->insert_id();
+//        }
+        
         $ibpl;
         if($_SESSION['post']['sts_bpl'] == "Y"){
             $ibpl = "1";
@@ -69,11 +70,15 @@ class Model_form extends CI_Model {
         }
         
         
+        $this->db->trans_start();
+        
+        
         $student_basic_data = array(
             'name' => $name,
             'fname' => $_SESSION['post']['sts_fname'],
             'mname' => $_SESSION['post']['sts_mname'],
             'gname' => $_SESSION['post']['sts_gname'],
+            'grel' => $_SESSION['post']['sts_grel'],
             'dob' => $_SESSION['post']['yy'] . '-' . $_SESSION['post']['mm'] . '-' . $_SESSION['post']['dd'],
             'sex' => $_SESSION['post']['sts_sex'],
             'ph_challenged' => $iph,
@@ -111,22 +116,48 @@ class Model_form extends CI_Model {
         $suc_ins1 = $this->db->insert('student_basic', $student_basic_data);
         $stu_id = $this->db->insert_id();
 
-        $academic_data = array(
-            'form_no' => $fno,
-            'last_school' => $_SESSION['post']['sts_school'],
-            'passing_yr' => $_SESSION['post']['sts_psyear'],
-            'client_ip' => $_SERVER['REMOTE_ADDR'],
-            'student_basic_id' => $stu_id
-        );
-
-        $suc_form = $this->db->insert('v_admission', $academic_data);
-        $form_no = $this->db->insert_id();
-        return $fno;
+       $academic_data = array(
+				'last_school'=>$_SESSION['post']['sts_school'],
+				'last_board'=>$_SESSION['post']['sts_board'],
+                                'typ'=>$_SESSION['post']['sts_type'],
+				'passing_yr'=>$_SESSION['post']['sts_psyear'],
+				'mark_obt'=>$_SESSION['post']['tot_obt'],
+				'mark_tot'=>$_SESSION['post']['tot'],
+				'percentage'=>$_SESSION['post']['prcnt'],
+				'division'=>'1st',
+				'bng'=>$_SESSION['post']['bng'],
+				'eng'=>$_SESSION['post']['eng'],
+				'mth'=>$_SESSION['post']['mth'],
+				'psc'=>$_SESSION['post']['psc'],
+				'lsc'=>$_SESSION['post']['lsc'],
+				'his'=>$_SESSION['post']['hst'],
+				'geo'=>$_SESSION['post']['geo'],
+				'student_basic_id'=>$stu_id
+		);
+	
+	$suc_form = $this->db->insert('academic_info_x', $academic_data);
+        $form_no_x = $this->db->insert_id();
+        
+        $xi_data = array(
+				'stream'=>$_SESSION['post']['stream'],
+				'el1'=>$_SESSION['post']['el1'],
+				'el2'=>$_SESSION['post']['el2'],
+				'el3'=>$_SESSION['post']['el3'],
+				'adl'=>$_SESSION['post']['adl'],
+				'student_basic_id'=>$stu_id
+		);
+		
+	$ins_xi = $this->db->insert('xi_admission', $xi_data);
+	$form_no = $this->db->insert_id();
+        
+        $this->db->trans_complete();
+        
+	return $form_no;
     }
     
-    public function isAadharExist($aadhar){
-       $sql = 'SELECT COUNT(*) AS count FROM student_basic WHERE aadhar_no = ?'; 
-       $binds = array($aadhar);
+    public function isAadharExist($aadhar, $stream){
+       $sql = 'SELECT COUNT(*) AS count FROM student_basic b INNER JOIN xi_admission xi ON xi.student_basic_id = b.id WHERE b.aadhar_no = ? AND xi.stream = ?'; 
+       $binds = array($aadhar, $stream);
        $query = $this->db->query($sql, $binds);
        $row = $query->row();
        if($row->count == 0){
@@ -136,10 +167,10 @@ class Model_form extends CI_Model {
        }
     }
     
-    public function isStudentExist($name, $fname, $dob) {
+    public function isStudentExist($name, $fname, $dob, $stream) {
        $rt = FALSE;
-       $sql = 'SELECT COUNT(*) AS count FROM student_basic WHERE name = ? AND fname=? AND dob=?'; 
-       $binds = array($name, $fname, $dob);
+       $sql = 'SELECT COUNT(*) AS count FROM student_basic b INNER JOIN xi_admission xi ON xi.student_basic_id = b.id WHERE b.name = ? AND b.fname=? AND b.dob=? AND xi.stream=?'; 
+       $binds = array($name, $fname, $dob, $stream);
        $query = $this->db->query($sql, $binds);
        $row = $query->row();
        if($row->count == 0){
@@ -150,10 +181,10 @@ class Model_form extends CI_Model {
        return $rt;
     }
     
-    public function isMobileExist($name, $mobile) {
+    public function isMobileExist($name, $mobile, $stream) {
        $rt1 = FALSE;
-       $sql1 = 'SELECT COUNT(*) AS count FROM student_basic WHERE name = ? AND mobile = ?'; 
-       $binds1 = array($name, $mobile);
+       $sql1 = 'SELECT COUNT(*) AS count FROM student_basic b INNER JOIN xi_admission xi ON xi.student_basic_id = b.id WHERE b.name = ? AND b.mobile = ? AND xi.stream = ?'; 
+       $binds1 = array($name, $mobile, $stream);
        $query1 = $this->db->query($sql1, $binds1);
        $row1 = $query1->row();
        if($row1->count == 0){
@@ -175,6 +206,13 @@ class Model_form extends CI_Model {
        }  else {
            return TRUE;    
        }
+    }
+    
+    public function get_total_applied() {
+        $sql = 'SELECT COUNT(*) AS count FROM xi_admission';
+        $query = $this->db->query($sql);
+        $row = $query->row();
+        return $row->count;
     }
 
 }
