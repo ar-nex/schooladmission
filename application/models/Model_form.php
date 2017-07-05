@@ -57,16 +57,20 @@ class Model_form extends CI_Model {
         
         $ibpl;
         if($_SESSION['post']['sts_bpl'] == "Y"){
-            $ibpl = "1";
+           // $ibpl = "1";
+            $ibpl = "Y";
         }else{
-            $ibpl = "0";
+           // $ibpl = "0";
+            $ibpl = "N";
         }
         
         $iph;
         if($_SESSION['post']['sts_ph'] == "Y"){
-            $iph = "1";
+            // $iph = "1";
+            $iph = "Y";
         }else{
-            $iph = "0";
+            // $iph = "0";
+            $iph = "N";
         }
         
         
@@ -132,6 +136,7 @@ class Model_form extends CI_Model {
 				'lsc'=>$_SESSION['post']['lsc'],
 				'his'=>$_SESSION['post']['hst'],
 				'geo'=>$_SESSION['post']['geo'],
+        'arb'=>$_SESSION['post']['arb'],
 				'student_basic_id'=>$stu_id
 		);
 	

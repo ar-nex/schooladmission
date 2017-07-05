@@ -4,7 +4,7 @@
     }
     .form-group .checkbox label, .form-group .radio label, .form-group label{color: black;}
     .form-group{margin: 5px 0 0 0;}
-    input[type="text"]{background-color: red;}
+
 </style>
 
 <!--
@@ -22,11 +22,18 @@
     <div class="col-md-12">
         <ul style="font-size: 1.5em;">
             <li>Please fill up all the mandatory fields.</li>
+            <li>If you did not have Arabic in 10th class then leave it blank.</li>
             <li>Mandatory fields are marked by <span class="mandatory">*</span></li>
         </ul>
         <?php
         if (isset($error_x['invalid_prcnt'])) {
             echo $error_x['invalid_prcnt'];
+        }
+         if (isset($error_x['invalid_combi'])) {
+            echo $error_x['invalid_combi'];
+        }
+         if (isset($error_x['invalid_addl'])) {
+            echo $error_x['invalid_addl'];
         }
         ?>
     </div>
@@ -410,7 +417,16 @@
                 <select name="yy" class="form-control" required>
                     <option value="">YY</option>
 
-
+                    <option value="1998" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '1998')) || (set_value('yy') === '1998')) {
+                        echo "selected";
+                    }
+                    ?>>1998</option>
+                    <option value="1999" <?php
+                    if ((isset($session['yy']) && ($session['yy'] === '1999')) || (set_value('yy') === '1999')) {
+                        echo "selected";
+                    }
+                    ?>>1999</option>
                     <option value="2000" <?php
                     if ((isset($session['yy']) && ($session['yy'] === '2000')) || (set_value('yy') === '2000')) {
                         echo "selected";
@@ -452,16 +468,7 @@
                         echo "selected";
                     }
                     ?>>2006</option>
-                    <option value="2007" <?php
-                    if ((isset($session['yy']) && ($session['yy'] === '2007')) || (set_value('yy') === '2007')) {
-                        echo "selected";
-                    }
-                    ?>>2007</option>
-                    <option value="2008" <?php
-                    if ((isset($session['yy']) && ($session['yy'] === '2008')) || (set_value('yy') === '2008')) {
-                        echo "selected";
-                    }
-                    ?>>2008</option>
+                    
                 </select>
 
             </div>
@@ -1291,7 +1298,7 @@
             <label for="sts_psyear" class="col-md-4 control-label">Marks obtained at MP exam <span class="mandatory">*</span> </label>
             <div class="col-md-2">
                 <div class="input-group">
-                    <span class="input-group-addon">BENG</span> 
+                    <span class="input-group-addon">BNG</span> 
                     <input type="number" name="bng" 
                            value="<?php
                            if (isset($session ['bng'])) {
@@ -1306,7 +1313,7 @@
             </div>
             <div class="col-md-2">
                 <div class="input-group">
-                    <span class="input-group-addon">ENGL</span> 
+                    <span class="input-group-addon">ENG</span> 
                     <input type="number" name="eng" 
                            value="<?php
                            if (isset($session ['eng'])) {
@@ -1338,7 +1345,7 @@
 
             <div class="col-md-2">
                 <div class="input-group">
-                    <span class="input-group-addon">PHSC</span> 
+                    <span class="input-group-addon">PSC</span> 
                     <input type="number" name="psc"
                            value="<?php
                            if (isset($session ['psc'])) {
@@ -1357,7 +1364,7 @@
 
             <div class="col-md-2 col-md-offset-4">
                 <div class="input-group">
-                    <span class="input-group-addon">LFSC</span> 
+                    <span class="input-group-addon">LSC</span> 
                     <input type="number" name="lsc" 
                            value="<?php
                            if (isset($session ['lsc'])) {
@@ -1371,9 +1378,27 @@
                 </div>
             </div>
 
+           
+
             <div class="col-md-2">
                 <div class="input-group">
-                    <span class="input-group-addon">GEOG</span> 
+                    <span class="input-group-addon">HST</span> 
+                    <input type="number" name="hst" 
+                           value="<?php
+                           if (isset($session ['hst'])) {
+                               echo $session ['hst'];
+                           } else {
+                               echo set_value('hst');
+                           }
+                           ?>" 
+                           min="10" max="100" required
+                           class="form-control sb-mark">
+                </div>
+            </div>
+
+             <div class="col-md-2">
+                <div class="input-group">
+                    <span class="input-group-addon">GEO</span> 
                     <input type="number" name="geo" 
                            value="<?php
                            if (isset($session ['geo'])) {
@@ -1389,16 +1414,16 @@
 
             <div class="col-md-2">
                 <div class="input-group">
-                    <span class="input-group-addon">HIST</span> 
-                    <input type="number" name="hst" 
+                    <span class="input-group-addon">ARB</span> 
+                    <input type="number" name="arb" 
                            value="<?php
-                           if (isset($session ['hst'])) {
-                               echo $session ['hst'];
+                           if (isset($session ['arb'])) {
+                               echo $session ['arb'];
                            } else {
-                               echo set_value('hst');
+                               echo set_value('arb');
                            }
                            ?>" 
-                           min="10" max="100" required
+                           min="10" max="100"
                            class="form-control sb-mark">
                 </div>
             </div>
@@ -1481,17 +1506,17 @@
                     subjects <span class="mandatory">*</span></label>
                 <div class="col-md-2">
                     <select name="el1" class="form-control sb-select" id="el-1" required>
-                        <option value=" ">Elective 1</option>
+                        <option value="">Elective 1</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <select name="el2" class="form-control sb-select" id="el-2" required>
-                        <option value=" ">Elective 2</option>
+                        <option value="">Elective 2</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <select name="el3" class="form-control sb-select" id="el-3" required>
-                        <option value=" ">Elective 3</option>
+                        <option value="">Elective 3</option>
                     </select>
                 </div>
 
@@ -1592,7 +1617,7 @@
             </div>
         </div>
 
-        <!--        -------------------------------------------------------------------------------->
+     
 
 
         <hr style=" border: 0; border-bottom: 1px dashed #ccc; background: #999;">
@@ -1600,9 +1625,7 @@
             <label class="col-md-4 control-label">Declaration <span class="mandatory">*</span></label>
             <div class="col-md-6">
                 <div class="checkbox" id="declr">
-                    <label> <input type="checkbox" name="chk_declr" required> <strong>The particulars given above are
-                            correct and we shall abide by the rules and regulation of the
-                            school and board.</strong>
+                    <label style="text-align: left"> <input type="checkbox" name="chk_declr" required>The particulars given above are correct and we shall abide by the rules and regulations of the school and board.
                     </label>
                 </div>
                 <?php

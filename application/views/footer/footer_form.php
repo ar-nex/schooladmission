@@ -3,9 +3,9 @@
     <script src="<?php echo site_url('asset/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo site_url('asset/js/material.min.js'); ?>"></script>
     <script src="<?php echo site_url('asset/js/ripples.min.js'); ?>"></script>
-    <script src="<?php echo site_url('asset/js/subject_selector.js'); ?>"></script>
+    <script src="<?php echo site_url('asset/js/subject_selector2.js'); ?>"></script>
   
-    <script src="<?php echo site_url('asset/js/form2.js'); ?>"></script>
+    <script src="<?php echo site_url('asset/js/form3.js'); ?>"></script>
     <script>
     $(function (){
        $.material.init(); 

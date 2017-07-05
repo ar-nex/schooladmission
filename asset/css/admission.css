@@ -28,6 +28,8 @@ option[value=""]{display: none;}
 
 .mandatory{color: red; font-weight: bolder;}
 
+.aggrement{text-align: left;}
+
 @-moz-keyframes spin {
   from {
     -moz-transform: rotate(0deg);
@@ -91,6 +93,35 @@ a.hvr:hover{
 .sidebar aside ul li a:hover, .sidebar aside ul li a:focus, .sidebar aside ul li a:active {text-decoration: none; color: orangered;}
 
 
+
+    .strip{background-color: #3F4259; margin-bottom: 1em;}
+    .strip h3{color: #c9aee3; text-align: center}
+    .strip p{color: white; text-align: center; font-size: 2.5em;}
+    .strip-inner{display: inline-block; border-right: 1px solid #8d61b8; width: 32%; padding-bottom: 15px;}
+    html, body, .full-hieght, .sidebar{ height: 100%;}
+    aside{ background-color: #3a3b3e; height: 100%; margin-left: -30px; margin-top: -20px; padding-bottom: 0px; position: fixed;}
+    a:active{color: orangered !important;}
+    @media only screen and (max-width: 992px) {
+        html, body, .full-hieght, .sidebar, aside{height: 100%;}
+        aside{position: static;}
+    }
+    aside ul{
+        list-style: none; font-size: 1.3em; color: yellow; padding-top: 50px; padding-left: 0; width: 100%;
+    }
+    aside ul li{
+        margin-bottom: 2px;
+    }
+    aside ul li a{
+        display: block; color: #bdc3c7;padding-left: 10px; padding-top: 10px; padding-bottom: 10px; border-right: 2px solid transparent; padding-right: 20px;}
+
+    aside ul li a:hover{
+        background-color: #252627;
+        text-decoration: none;
+        color: wheat;
+        border-right: 2px solid #2980b9;
+    }
+   .form-group-percentage{ margin-top: 3px; margin-bottom: 3px;}
+
 /* End: Dashboard */
 
 /* photo upload new */
@@ -147,12 +178,17 @@ ul.style-list{
 	padding: 15px;
     position: relative;
     border-left: 3px solid teal;
-    
+    border-right: 3px solid transparent;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+
     
 }
 
 .ov-wrapper:hover{
-box-shadow: 0px 2px 2px #bbb;
+
+    border: 3px solid teal;
+ 
 }
 
 .ov-wrapper h4{
@@ -195,3 +231,80 @@ box-shadow: 0px 2px 2px #bbb;
 }
 .overview-icon-holder i{color : black; margin-left: 1px;}
 /* end: overview */
+
+
+/* admission day */
+.btn-adm-wrapper{
+    border-top: 2px solid #3A539B;
+    margin-bottom: 15px;
+    padding-top: 5px;
+}
+.rank{
+    padding: 10px;
+    background-color: black;
+    color: white;
+}
+.merit-l-ul{
+    list-style: none;
+}
+.merit-l-ul > li{
+    border-bottom: 1px dotted #666;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-bottom: 1em;
+    padding-top: .8em;
+}
+.r-det{
+   margin-left: 55px;
+   position: relative;
+}
+.adm-sts{
+    position: absolute;
+    top: 0;
+    right: 0;
+    
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.act-no{
+    color: darkmagenta;
+}
+
+.act-admitted{
+    color: green;
+}
+
+.act-absent{
+    color: orangered;
+}
+
+.act-rejected{
+   color: red;
+}
+
+.p-dt{
+    margin-bottom: 2px;
+}
+
+.sname {
+    font-weight: bold;
+    background-color: #eee;
+    display: inline-block;
+    font-size: 1.2em;
+    margin-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    
+}
+
+.fix-pos{
+    position: fixed;
+    left: 20px;
+    top: 40%;
+    border-right: 1px dotted black;
+    padding-right: 3px;
+}
+
+#adm-img-st1{
+  visibility: hidden;
+}

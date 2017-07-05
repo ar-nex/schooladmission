@@ -30,7 +30,7 @@ class Overview extends CI_Controller {
                 $this->load->view('nav/logged_nav', $admin);
                 $this->load->view('overview/ov', $data);
                 $this->load->view('footer/footer_section');
-                $this->load->view('footer/default_footer');
+                $this->load->view('footer/footer_overview');
             } else {
                 echo "Sorry no record found.";
             }
@@ -238,10 +238,11 @@ class Overview extends CI_Controller {
             $admin['logged_admin'] = $_SESSION['user'];
             $data['d'] = $this->model_overview->getOverviewInValid();
             if ($data['d']) {
-                $this->load->view('template/logged_header_nav');
+                $this->load->view('header/default_header');
+                $this->load->view('nav/logged_nav', $admin);
                 $this->load->view('overview/ov_in_valid', $data);
-                $this->load->view('template/footer');
-                $this->load->view('template/endpage');
+               $this->load->view('footer/footer_section');
+                $this->load->view('footer/default_footer');
             } else {
                 echo "Sorry no record found.";
             }

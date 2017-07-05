@@ -1,32 +1,4 @@
-<style>
-    .strip{background-color: #3F4259; margin-bottom: 1em;}
-    .strip h3{color: #c9aee3; text-align: center}
-    .strip p{color: white; text-align: center; font-size: 2.5em;}
-    .strip-inner{display: inline-block; border-right: 1px solid #8d61b8; width: 32%; padding-bottom: 15px;}
-    html, body, .full-hieght, .sidebar{ height: 100%;}
-    aside{ background-color: #3a3b3e; height: 100%; margin-left: -30px; margin-top: -20px; padding-bottom: 0px; position: fixed;}
-    a:active{color: orangered !important;}
-    @media only screen and (max-width: 992px) {
-        html, body, .full-hieght, .sidebar, aside{height: 100%;}
-        aside{position: static;}
-    }
-    aside ul{
-        list-style: none; font-size: 1.3em; color: yellow; padding-top: 50px; padding-left: 0; width: 100%;
-    }
-    aside ul li{
-        margin-bottom: 2px;
-    }
-    aside ul li a{
-        display: block; color: #bdc3c7;padding-left: 10px; padding-top: 10px; padding-bottom: 10px; border-right: 2px solid transparent; padding-right: 20px;}
 
-    aside ul li a:hover{
-        background-color: #252627;
-        text-decoration: none;
-        color: wheat;
-        border-right: 2px solid #2980b9;
-    }
-   .form-group-percentage{ margin-top: 3px; margin-bottom: 3px;}
-</style>
 <div class="container-fluid full-hieght" style="margin-top: 75px;">
     <div class="col-md-2 sidebar">
         <aside>
@@ -35,11 +7,15 @@
                 <li><a href="<?php echo site_url('/coupon'); ?>"><span class="glyphicon glyphicon-random"></span> &nbsp; Lottery coupons</a></li>
                 <li><a href="<?php echo site_url('/lotteryentry'); ?>"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Lottery data entry</a></li>
                 <li><a href="<?php echo site_url('/selected'); ?>"><span class="glyphicon glyphicon-check"></span> &nbsp; Selected Students</a></li>-->
-                <li><a href="<?php echo site_url('/admissionday'); ?>"><span class="glyphicon glyphicon-list-alt"></span> &nbsp; Merit list ARTS</a></li>
-                <li><a href="<?php echo site_url('/admissionday'); ?>"><span class="glyphicon glyphicon-list-alt"></span> &nbsp; Merit list SCIENCE</a></li>
+                <li><a href="<?php echo site_url('/merit/arts'); ?>" target="_blank"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> &nbsp; Merit list ARTS</a></li>
+                <li><a href="<?php echo site_url('/merit/science'); ?>" target="_blank"><i class="fa fa-sort-numeric-desc" aria-hidden="true"></i> &nbsp; Merit list SCIENCE</a></li>
               
-                <li><a href="<?php echo site_url('/admissionday'); ?>"><span class="glyphicon glyphicon-list-alt"></span> &nbsp; Admission day</a></li>
+              <li><a href="<?php echo site_url('/secondphase'); ?>" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></i> &nbsp; Merit list second</a></li>
+
+                <li><a href="<?php echo site_url('/admission'); ?>"><span class="glyphicon glyphicon-list-alt"></span> &nbsp; Admission day</a></li>
+                <li><a href="<?php echo site_url('/admissionnew'); ?>"><span class="glyphicon glyphicon-list-alt"></span> &nbsp; Admission new</a></li>
                 <li><a href="<?php echo site_url('/edit'); ?>" target="_blank"><span class="glyphicon glyphicon-edit"></span> &nbsp; Edit</a></li>
+                <li><a href="<?php echo site_url('/editcombo'); ?>" target="_blank"><i class="fa fa-refresh" aria-hidden="true"></i> &nbsp; Edit Subject Combo</a></li>
                 <li><a href="<?php echo site_url('/download'); ?>" target="_blank"><span class="glyphicon glyphicon-list"></span> &nbsp; Stat &AMP; download</a></li>
             </ul>
         </aside>
@@ -47,7 +23,7 @@
     <div class="col-md-7">
         <div class="strip">
             <div class="strip-inner text-center">
-                <h3>Total applied</h3>
+                <h3>Total Applied</h3>
                 <input type="hidden" id="h-tot-count" value="<?php echo($tot_applied); ?>">
                 <p id="p-tot-count"><?php echo($tot_applied); ?></p>
                 <a class="btn btn-raised btn-sm btn-danger" href="<?php echo site_url('overview'); ?>">view</a>
@@ -115,6 +91,12 @@
                 <a class="btn btn-sm btn-raised btn-warning" href="<?php echo site_url('overview/arts'); ?>">view</a>
             </div>
         </div>
+        
+        <h3 class="page-header">View Students & Subjects</h3>
+        <a class="btn btn-primary" href = <?php echo site_url('subject');?>>All</a>
+        <a class="btn btn-primary" href = <?php echo site_url('subject/arts');?>>Arts without Geo</a>
+        <a class="btn btn-primary" href = <?php echo site_url('subject/geo');?>>Arts with Geo</a>
+        <a class="btn btn-primary" href = <?php echo site_url('subject/science');?>>Science</a>
         
         <h3 class="page-header">Daily form fill up statics</h3>
         <div id="chart" style="width: 100%; height: 200px; margin: 0 auto;">
@@ -194,15 +176,17 @@
             <div class="panel-body">
                 <dl>
                     <dt>Internal</dt>
-                    <dd>Science : <span id="ip-s"> <?php echo $percentage['int_sci'] ?></span></dd>
+                    <dd>Science : <span id="ip-s"> <?php echo $percentage['int_sci'].' %'; ?></span></dd>
+                    <dd>Arts : <span id="ip-a"> <?php echo $percentage['int_arts']. ' %'; ?></span></dd>
                     <dd>Arts with Geo : <span id="ip-g"> <?php echo $percentage['int_arts_geo'] ?></span></dd>
-                    <dd>Arts : <span id="ip-a"> <?php echo $percentage['int_arts'] ?></span></dd>
+                    
                 </dl>
                <dl>
                     <dt>External</dt>
-                    <dd>Science : <span id="ep-s"> <?php echo $percentage['ext_sci'] ?></span></dd>
+                    <dd>Science : <span id="ep-s"> <?php echo $percentage['ext_sci']. ' %'; ?></span></dd>
+                    <dd>Arts : <span id="ep-a"><?php echo $percentage['ext_arts']. ' %'; ?></span></dd>
                     <dd>Arts with Geo : <span id="ep-g"> <?php echo $percentage['ext_arts_geo'] ?></span></dd>
-                    <dd>Arts : <span id="ep-a"><?php echo $percentage['ext_arts'] ?></span></dd>
+                    
                 </dl>
                 <button class="btn btn-raised btn-default" data-toggle="modal" data-target="#perModal"><i class="material-icons">swap_vert</i> Update percentage</button>
 
@@ -220,44 +204,46 @@
                                     <form class="form-horizontal">
                                     <h4>For internal students</h4>
                                     <div class="form-group form-group-percentage">
-                                        <label for="int_sci" class="col-md-3 control-label">Science: </label>
+                                        <label for="int_sci" class="col-md-5 control-label">Science (percentage): </label>
                                         <div class="col-md-4">
                                             <input type="number" min="10" max="90" class="form-control" name="int_sci" value="<?php echo $percentage['int_sci']; ?>" class="form-control" id="int_sci">
                                         </div>
                                     </div>
                                     
-                                    <div class="form-group form-group-percentage">
-                                        <label for="int_arts_geo" class="col-md-3 control-label">Arts with Geo: </label>
-                                        <div class="col-md-4">
-                                            <input type="number" min="10" max="90" class="form-control" name="int_arts_geo" value="<?php echo $percentage['int_arts_geo']; ?>" class="form-control" id="int_arts_geo">
-                                        </div>
-                                    </div>
+                                    
 
                                     <div class="form-group form-group-percentage">
-                                        <label for="int_arts" class="col-md-3 control-label">Arts: </label>
+                                        <label for="int_arts" class="col-md-5 control-label">Arts (percentage): </label>
                                         <div class="col-md-4">
                                             <input type="number" min="10" max="90" class="form-control" name="int_arts" value="<?php echo $percentage['int_arts']; ?>" class="form-control" id="int_arts">
                                         </div>
                                     </div>
+                                    <div class="form-group form-group-percentage">
+                                        <label for="int_arts_geo" class="col-md-5 control-label">Arts with Geo (Marks in Geo): </label>
+                                        <div class="col-md-4">
+                                            <input type="number" min="10" max="90" class="form-control" name="int_arts_geo" value="<?php echo $percentage['int_arts_geo']; ?>" class="form-control" id="int_arts_geo">
+                                        </div>
+                                    </div>
                                     <h4>For external students</h4>
                                     <div class="form-group form-group-percentage">
-                                        <label for="ext_sci" class="col-md-3 control-label">Science: </label>
+                                        <label for="ext_sci" class="col-md-5 control-label">Science (percentage): </label>
                                         <div class="col-md-4">
                                             <input type="number" min="10" max="90" class="form-control" name="ext_sci" value="<?php echo $percentage['ext_sci']; ?>" class="form-control" id="ext_sci">
                                         </div>
                                     </div>
                                     
-                                    <div class="form-group form-group-percentage">
-                                        <label for="ext_arts_geo" class="col-md-3 control-label">Arts with Geo: </label>
-                                        <div class="col-md-4">
-                                            <input type="number" min="10" max="90" class="form-control" name="ext_arts_geo" value="<?php echo $percentage['ext_arts_geo']; ?>" class="form-control" id="ext_arts_geo">
-                                        </div>
-                                    </div>
+                                    
 
                                     <div class="form-group form-group-percentage">
-                                        <label for="ext_arts" class="col-md-3 control-label">Arts: </label>
+                                        <label for="ext_arts" class="col-md-5 control-label">Arts (percentage): </label>
                                         <div class="col-md-4">
                                             <input type="number" min="10" max="90" class="form-control" name="ext_arts" value="<?php echo $percentage['ext_arts']; ?>" class="form-control" id="ext_arts">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-percentage">
+                                        <label for="ext_arts_geo" class="col-md-5 control-label">Arts with Geo (Marks in Geo): </label>
+                                        <div class="col-md-4">
+                                            <input type="number" min="10" max="90" class="form-control" name="ext_arts_geo" value="<?php echo $percentage['ext_arts_geo']; ?>" class="form-control" id="ext_arts_geo">
                                         </div>
                                     </div>
                                     </form>

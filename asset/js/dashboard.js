@@ -4,8 +4,8 @@ $("#btn-dt-change").click(function () {
 
     var prtcl = "http://";
     var site_domain = document.domain;
-   // var contr = "/adminajax/setdate";
-    var contr = "/schooladmission/adminajax/setdate";
+    var contr = "/adminajax/setdate";
+   // var contr = "/schooladmission/adminajax/setdate";
     var targetUrl = prtcl.concat(site_domain, contr);
 
 
@@ -40,8 +40,8 @@ $("#btn-pr-change").click(function () {
 console.log(i_sci);
     var prtcl = "http://";
     var site_domain = document.domain;
-   // var contr = "/adminajax/setPercentage";
-    var contr = "/schooladmission/adminajax/setPercentage";
+    var contr = "/adminajax/setPercentage";
+    //var contr = "/schooladmission/adminajax/setPercentage";
     var targetUrl = prtcl.concat(site_domain, contr);
 
 

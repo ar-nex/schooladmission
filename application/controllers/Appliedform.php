@@ -48,7 +48,8 @@ class Appliedform extends CI_Controller {
 					//print_r($formdata);
 					//CHECK it while uploading to server. May be it will require some changes.
 						
-					$pdf_file = ($_SERVER["DOCUMENT_ROOT"])."/schooladmission/application/third_party/fpdf/Nmhs_pdf.php";
+					//$pdf_file = ($_SERVER["DOCUMENT_ROOT"])."/schooladmission/application/third_party/fpdf/Nmhs_pdf.php";
+					$pdf_file = ($_SERVER["DOCUMENT_ROOT"])."/application/third_party/fpdf/Nmhs_pdf.php";
 					require $pdf_file;
 						
 					$pdf = new Nmhs_pdf();
@@ -116,8 +117,8 @@ class Appliedform extends CI_Controller {
         private function _WriteSchoolHeader($pdf)
 	{
 		
-                //$logo_src = '/home/nexaping/public_html/nmhs2/asset/images/nmhs-logo.jpg';
-               $logo_src = 'C:/xampp/htdocs/schooladmission/asset/images/nmhs-logo.jpg';
+                $logo_src = '/home/nexaping/public_html/nmhs11/asset/images/nmhs-logo.jpg';
+             //  $logo_src = 'C:/xampp/htdocs/schooladmission/asset/images/nmhs-logo.jpg';
                 $pdf->SetFont('Arial', 'B', 24);
 		$pdf->Cell(0,10, 'Naimouza High School (H.S.)', 0, 1, 'C');
 	
@@ -224,7 +225,12 @@ class Appliedform extends CI_Controller {
 		$pdf->Ln(4);
 		$pdf->Cell(30, 6, chr(149).' Is physically challenged');
 		$pdf->Cell(15);
-		$ph = $formdata['ph_challenged'] == 1 ? "Yes" : "No";
+                $ph;
+                if ($formdata['ph_challenged'] == 1 || $formdata['ph_challenged'] == "Y") {
+                    $ph = "Yes";
+                }else{
+                    $ph = "No";
+                }
 		$pdf->Cell(15, 6, ': ' . $ph);
 		
 		
@@ -236,7 +242,7 @@ class Appliedform extends CI_Controller {
                 $pdf->Ln(4);
                 $pdf->Cell(30, 6, chr(149).' Is BPL');
 		$pdf->Cell(15);
-                if($formdata['is_bpl'] == 1){
+                if(($formdata['is_bpl'] == 1)||($formdata['is_bpl'] == "Y")){
                     $bpl = "Yes";
                 }else{
                     $bpl = "No";
@@ -437,23 +443,40 @@ class Appliedform extends CI_Controller {
 //		$pdf->Cell(0,6, "Marks obtained in mydhyamic exam");
 //		$pdf->Ln();
 	
-		$table_header = array ( 'Subject', 'BENG', 'ENG', 'MATH', 'P.Sc', 'L.Sc', 'GEO', 'HIST', 'Total Obt.');
+		if ($formdata['last_board'] === "WBBSE") {
+            $table_header = array('Subject', 'BENG', 'ENG', 'MATH', 'P.Sc', 'L.Sc', 'GEO', 'HIST', 'Total Obt.');
+        } else {
+            $table_header = array('Subject', 'BENG', 'ENG', 'MATH', 'P.Sc', 'L.Sc', 'GEO', 'HIST', 'ARB', 'Total Obt.');
+        }
 	
 		$pdf->SetFont('Arial', 'B', 10);
-		for ($i=0; $i<count($table_header); $i++ )
-		{
-			$pdf->Cell(21, 6, $table_header[$i], 1);
-		}
+		if ($formdata['last_board'] === "WBBSE") {
+            for ($i = 0; $i < count($table_header); $i++) {
+                $pdf->Cell(21, 6, $table_header[$i], 1);
+            }
+        } else {
+            for ($i = 0; $i < count($table_header); $i++) {
+                $pdf->Cell(19, 6, $table_header[$i], 1);
+            }
+        }
 		$pdf->SetFont('Arial', '', 10);
 	
 	
-		$table_data = array ('Mark in MP', $formdata['bng'], $formdata['eng'], $formdata['mth'], $formdata['psc'], $formdata['lsc'], $formdata['geo'], $formdata['his'], $formdata['mark_obt']);
+		if ($formdata['last_board'] === "WBBSE") {
+            $table_data = array('Mark in MP', $formdata['bng'], $formdata['eng'], $formdata['mth'], $formdata['psc'], $formdata['lsc'], $formdata['geo'], $formdata['his'], $formdata['mark_obt']);
+        } else {
+            $table_data = array('Mark in MP', $formdata['bng'], $formdata['eng'], $formdata['mth'], $formdata['psc'], $formdata['lsc'], $formdata['geo'], $formdata['his'], $formdata['arb'], $formdata['mark_obt']);
+        }
 		$pdf->Ln();
-		for ($i=0; $i<count($table_data); $i++ )
-		{
-			$pdf->Cell(21, 6, $table_data[$i], 1);
-		}
-                
+		if ($formdata['last_board'] === "WBBSE") {
+            for ($i = 0; $i < count($table_data); $i++) {
+                $pdf->Cell(21, 6, $table_data[$i], 1);
+            }
+        } else {
+            for ($i = 0; $i < count($table_data); $i++) {
+                $pdf->Cell(19, 6, $table_data[$i], 1);
+            }
+        }    
                 $pdf->Ln(4);
                 $pdf->SetFont('Arial', '', 9);
 		$pdf->Cell(25, 10, 'Subjects for class XI :');

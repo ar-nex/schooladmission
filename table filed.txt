@@ -1,0 +1,51 @@
+s1 - name
+s2 - fname
+s3 - mname
+s4 - gname
+s5 - grel
+s6 - dob
+s7 - sex
+s8 - ph_challenged
+s9 - ph_type
+s10 - guardian_occu
+s11 - category
+s12 - is_bpl
+s13 - aadhar_no
+s14 - guardian_aadhar
+s15 - religion
+s16 - bpl_no
+s17 - epic_no
+
+b1 - bank_account
+b2 - bank_name
+b3 - bank_branch
+b4 - branch_ifsc
+
+
+c1 - addresslane1a
+c2 - addresslane1
+c3 - addresslane2
+c4 - ps
+c5 - dist
+c6 - pin
+c7 - p_addresslane1a
+c8 - p_addresslane1
+c9 - p_addresslane2
+c10 - p_ps
+c11 - p_dist
+c12 - p_pin
+
+l1 - last_school
+l2 - last_board
+l3 - passing_yr
+
+m1 - bng
+m2 - eng
+m3 - mth
+m4 - psc
+m5 - lsc
+m5 - his
+m6 - geo
+> m7 - mark_obt
+> m8 - mark_tot
+> m9 - percentage

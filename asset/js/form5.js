@@ -1131,8 +1131,11 @@ function getObtPercentage(){
 	var lm = parseInt($("input[name='lsc']").val());
 	var gm = parseInt($("input[name='geo']").val());
 	var hm = parseInt($("input[name='hst']").val());
-	
-	var Tm = bm + em + mm + pm + lm + gm + hm;
+	var ar = parseInt($("input[name='arb']").val());
+	if(isNaN(ar)){
+	    ar = 0;
+	}
+	var Tm = bm + em + mm + pm + lm + gm + hm + ar;
 	var Fm = parseInt($("input[name='tot']").val());
 	
 	var prc = Tm/Fm*100;

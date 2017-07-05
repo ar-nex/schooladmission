@@ -16,12 +16,20 @@
             <marquee><h3 style="margin-top: 0px;">Online applying starts on <?php echo date_format(date_create($dt['start_date']), "d-m-Y"); ?>  and closes on <?php echo date_format(date_create($dt['end_date']), "d-m-Y"); ?></h3></marquee>
         </div>
         <div class="col-md-4">
-            <a href="#" class="btn btn-raised btn-success btn-sm"><i class="fa fa-download"></i> Re-download form</a>
-            <a href="#" class="btn btn-raised btn-primary btn-sm"><i class="fa fa-exclamation-circle"></i> Check form status</a>
+            <a href="<?php echo site_url('appliedform/view'); ?>" class="btn btn-raised btn-success btn-sm"><i class="fa fa-download"></i> Re-download form</a>
+           
         </div>
     </div>
     <div class="row">
         <div class="col-md-8">
+         <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">School Notice</h3>
+                </div>
+                 <div class="panel-body">
+                    <img class="img-responsive" src="<?php echo site_url('asset/images/notice/formfillup.jpg'); ?>">
+                </div>
+            </div>
             <h2>Form fill up instruction</h2>
             <div class="list-group">
                 <div class="list-group-item">
@@ -102,18 +110,20 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Minimum percentages</h3>
                 </div>
-                <div class="panel-body">
+                 <div class="panel-body">
                     <dl>
                         <dt>Internal (passed MP from this school)</dt>
-                        <dd>Science : <?php echo $percentage['int_sci']; ?></dd>
-                        <dd>Arts with Geography : <?php echo $percentage['int_arts_geo']; ?></dd>
-                        <dd>Arts without Geography : <?php echo $percentage['int_arts']; ?></dd>
+                        <dd>Science : <?php echo $percentage['int_sci'].' %'; ?></dd>
+                        <dd>Arts : <?php echo $percentage['int_arts'].' %'; ?></dd>
+                        <dd>Arts with Geography : Min. Marks in Geography <?php echo $percentage['int_arts_geo']; ?></dd>
+                        
                     </dl>
                     <dl>
                         <dt>External (passed MP from other school)</dt>
-                        <dd>Science : <?php echo $percentage['ext_sci']; ?></dd>
-                        <dd>Arts with Geography : <?php echo $percentage['ext_arts_geo']; ?></dd>
-                        <dd>Arts without Geography : <?php echo $percentage['ext_arts']; ?></dd>
+                        <dd>Science : <?php echo $percentage['ext_sci'].' %'; ?></dd>
+                        <dd>Arts : <?php echo $percentage['ext_arts'].' %'; ?></dd>
+                        <dd>Arts with Geography : Min. Marks in Geography <?php echo $percentage['ext_arts_geo']; ?></dd>
+                        
                     </dl>
                 </div>
             </div>
@@ -123,11 +133,12 @@
                     <h3 class="panel-title">Important dates</h3>
                 </div>
                 <div class="panel-body">
-                    <dl>
-                        <dt><i class="material-icons">date_range</i> Form fill up</dt>
-                        <dd>starts on : <?php echo date_format(date_create($dt['start_date']), "d-M-Y"); ?> </dd>
-                        <dd>closes on : <?php echo date_format(date_create($dt['end_date']), "d-M-Y"); ?></dd>
-                    </dl>
+                    <h4 style="margin-bottom: 0px;">Starts on :</h4>
+                <span class="date-style" id="startdate"> <?php echo date_format(date_create($dt['start_date']), "d-M-Y"); ?></span>
+
+                <h4 style="margin-bottom: 0px;">Closes on :</h4> 
+                <span class="date-style" id="enddate"> <?php echo date_format(date_create($dt['end_date']), "d-M-Y"); ?></span>
+                <br>
                 </div>
             </div>
 

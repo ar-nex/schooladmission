@@ -3,6 +3,7 @@
 <script src="<?php echo site_url('asset/js/bootstrap.min.js'); ?>"></script>
 <script src="<?php echo site_url('asset/js/material.min.js'); ?>"></script>
 <script src="<?php echo site_url('asset/js/ripples.min.js'); ?>"></script>
+<script src="<?php echo site_url('asset/js/editcombo.js'); ?>"></script>
 
 <script>
     $(function () {

@@ -89,30 +89,7 @@ class Model_admin extends CI_Model {
     }
     
     
-    public function getMeritList($stream) {
-        if ($stream == "SCIENCE") {
-            $sql = "SELECT b.name, b.fname, xi.form_id, a.percentage FROM student_basic b"
-                    . "INNER JOIN xi_admission xi ON xi.student_basic_id = b.id"
-                    . "INNER JOIN academic_info_x a ON a.student_basic_id = b.id"
-                    . "WHERE NOT xi.is_muted <=> 1 AND xi.stream = 'SCIENCE' ORDER BY a.percentage DESC, (a.mth+a.psc+a.lsc) DESC";
-        }
-        else if($stream === "ARTS")
-        {
-            $sql = "SELECT b.name, b.fname, xi.form_id, a.percentage FROM student_basic b"
-                    . "INNER JOIN xi_admission xi ON xi.student_basic_id = b.id"
-                    . "INNER JOIN academic_info_x a ON a.student_basic_id = b.id"
-                    . "WHERE NOT xi.is_muted <=> 1 AND xi.stream = 'ARTS' ORDER BY a.percentage DESC, (a.bng+a.eng+a.geo+a.his) DESC";
-        }
-        
-        $query = $this->db->query($sql);
-        $result = $query->result_array();
-        if ($result) {
-            $result = $result[0];
-            return $result;
-        } else {
-            return FALSE;
-        }
-    }
+    
     
     
 

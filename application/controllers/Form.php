@@ -101,15 +101,15 @@ class Form extends CI_Controller {
             } else if (isset($_POST['sts_adhr']) && $this->_isAadharPresent($_POST['sts_adhr'], $appliedStream)) {
                 $data['unique_msg'] = "Student with same aadhar number already applied.";
                 $this->_buildform($this->_getDateInfo(), $data);
-            } elseif (!$this->_hasValidPercentage($_POST['tot'], array($_POST['bng'], $_POST['eng'], $_POST['mth'], $_POST['psc'], $_POST['lsc'], $_POST['geo'], $_POST['hst']), $_POST['stream'], $_POST['sts_type'], $data['ceilPer'])) {
+            } elseif (!$this->_hasValidPercentage($_POST['tot'], array($_POST['bng'], $_POST['eng'], $_POST['mth'], $_POST['psc'], $_POST['lsc'], $_POST['geo'], $_POST['hst'], $_POST['arb']), $_POST['stream'], $_POST['sts_type'], $data['ceilPer'])){
                 $data['error_x']['invalid_prcnt'] = '<p class="in-error">Sorry! You have less percentage and you are not eligible to apply in this stream.</p>';
 
                 $this->_buildform($this->_getDateInfo(), $data);
             } elseif (!$this->_hasCorrectSubjects($_POST['stream'], array($_POST['el1'], $_POST['el2'], $_POST['el3']))) {
-                $data['error_x']['invalid_combi'] = '<p class="in-error">Please chose appropriate subject combination according to stream.</p>';
+                $data['error_x']['invalid_combi'] = '<p class="in-error">Please choose appropriate subject combination according to stream.</p>';
                 $this->_buildform($this->_getDateInfo(), $data);
             } elseif (!$this->_hasCorrectAdditional($_POST['stream'], $_POST['adl'])) {
-                $data['error_x']['invalid_addl'] = '<p class="in-error">Please chose appropriate subject combination according to stream.</p>';
+                $data['error_x']['invalid_addl'] = '<p class="in-error">Please choose appropriate additional subject according to stream.</p>';
                 $this->_buildform($this->_getDateInfo(), $data);
             } elseif (!$this->_validateCaptcha($_POST['ascap'], $this->input->ip_address())) {
                 $data['error_x']['invalid_captcha'] = '<p class="in-error">Sorry! Captcha text didn\'t matche.</p>';
@@ -270,7 +270,7 @@ class Form extends CI_Controller {
 
     private function _hasCorrectSubjects($stream, $subs) {
         $validSci = array("PHYSICS", "CHEMISTRY", "MATHEMATICS", "BIOLOGY");
-        $validArt = array("GEOGRAPHY", "HISTORY", "POL. SC", "PHILOSOPHY", "ECONOMICS", "ARABIC");
+        $validArt = array("GEOGRAPHY", "HISTORY", "POL. SC", "PHILOSOPHY", "ECONOMICS", "ARABIC", "SOCIOLOGY", "EDUCATION");
 
         if ($stream === "SCIENCE") {
             foreach ($subs as $value) {
@@ -292,11 +292,11 @@ class Form extends CI_Controller {
     private function _hasCorrectAdditional($strm, $sub) {
         $validSci = array("PHYSICS", "CHEMISTRY", "MATHEMATICS", "BIOLOGY");
         $validArt = array("GEOGRAPHY", "HISTORY", "POL. SC", "PHILOSOPHY", "ECONOMICS", "ARABIC", "SOCIOLOGY", "EDUCATION");
-        if ($strm === "SCIENCE" && $sub !== " ") {
+        if ($strm === "SCIENCE" && $sub !== "") {
             if (!in_array($sub, $validSci)) {
                 return false;
             }
-        } elseif ($strm === "ARTS" && $sub !== " ") {
+        } elseif ($strm === "ARTS" && $sub !== "") {
             if (!in_array($sub, $validArt)) {
                 return false;
             }
@@ -425,7 +425,7 @@ class Form extends CI_Controller {
         $isValidW = false;
         if ($tp === "INTERNAL") {
             $ep = $m['int_arts_geo'];
-            if ($op >= $ep) {
+            if ($_POST['geo'] >= $ep && $this->_hasValidOutGeo($tp, $op, $m)) {
                 $isValidW = true;
             } else {
                 $isValidW = false;
@@ -434,7 +434,7 @@ class Form extends CI_Controller {
             return $isValidW;
         } else if ($tp === "EXTERNAL") {
             $ep = $m['ext_arts_geo'];
-            if ($op >= $ep) {
+            if ($_POST['geo'] >= $ep && $this->_hasValidOutGeo($tp, $op, $m)) {
                 $isValidW = true;
             } else {
                 $isValidW = false;
@@ -509,7 +509,7 @@ class Form extends CI_Controller {
     
         private function _sendSMSToHeadSir($formCount) {
         $authKey = "132443ATujQDvdWfF583dab47";
-        $mobileNumber = "8513094183";
+        $mobileNumber = "9434355479";
         $senderId = "NMHSXI";
         $message = urlencode("Respected Sir, Greetings from nexap.in. Total form fill up for class XI admission till now is ".$formCount.". Thank you.");
 
